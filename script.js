@@ -4,7 +4,7 @@
 let num1 = 2;
 let num2 = 3;
 const Degree = (num, degree) => {
-    for(let i = 0; i < degree-1; i++){
+    for(let i = 1; i < degree; i++){
         num *= num;
     }
     return num;
@@ -16,7 +16,7 @@ console.log(Degree(num1,3) + Degree(num2,3));
 /*Пользователь вводит с клавиатуры число, если ввёл текст, необходимо вывести что значение задано неверно
 Создать фукнцию, которая высчитывает 13% от данного числа и выводит в консоль текст "Размер заработной платы за вычетом налогов равен значение"*/
 
-let userSalary = 100;
+let userSalary;
 while(true){
     userSalary = Number(prompt('Введите свою зарплату'));
     if(isNaN(userSalary)) alert('Это не число');
