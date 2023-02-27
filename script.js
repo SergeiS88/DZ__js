@@ -8,9 +8,9 @@
 10 – четное число*/
 
 for (let i = 0; i < 11; i++) {
-    if (i === 0) console.log('это ноль');
+    if (i%2 === 0) console.log('чётное число');
     else if (i%2 !== 0) console.log('нечётное число');
-    else console.log('чётное число');
+    else console.log('это ноль');
 }
 
 /*Задание 2
