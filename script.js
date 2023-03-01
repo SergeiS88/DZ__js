@@ -1,52 +1,112 @@
 /*Задание 1
-Необходимо с помощью цикла for вывести следующие 11 строк в консоль:
-0 – это ноль
-1 – нечетное число
-2 – четное число
-3 – нечетное число
-…
-10 – четное число*/
-
-for (let i = 0; i < 11; i++) {
-    if (i%2 === 0) console.log('чётное число');
-    else if (i%2 !== 0) console.log('нечётное число');
-    else console.log('это ноль');
+Дан объект numbers. Необходимо в консоль вывести все значения больше или равные 3.Задание 1
+Дан объект numbers. Необходимо в консоль вывести все значения больше или равные 3.*/
+const numbers = {
+    keyin1: 1,
+    keyin2: 2,
+    keyin3: 3,
+    keyin4: 4,
+    keyin5: 5,
+    keyin6: 6,
+    keyin7: 7,
 }
+console.log(Object.values(numbers).filter(x => x >= 3));
+
 
 /*Задание 2
-Дан массив [1, 2, 3, 4, 5, 6, 7]
-Сделайте из этого массива следующий [1, 2, 3, 6, 7]*/
+Необходимо из объекта, который лежит в константе post вывести значения, к которым приписан комментарий, в консоль.*/
+const post = {
+    author: "John", // вывести этот текст
+    postId: 23,
+    comments: [
+        {
+        userId: 10,
+        userName: "Alex",
+        text: "lorem ipsum",
+        rating: {
+            likes: 10,
+            dislikes: 2, // вывести это число
+            },
+        },
+        {
+        userId: 5, // вывести это число
+        userName: "Jane",
+        text: "lorem ipsum 2", // вывести этот текст
+        rating: {
+            likes: 3,
+            dislikes: 1,
+            },
+        },
+    ],
+};
 
-const arr1 = [1, 2, 3, 4, 5, 6, 7];
-arr1.splice(3, 2);
-console.log(arr1);
+console.log(post.author,
+    post.comments[0].rating.dislikes,
+    post.comments[1].userId,
+    post.comments[1].text
+);
+
 
 /*Задание 3
-Используя Math.random() вам необходимо генерировать цифры от 0 до 9, и создать массив состоящий из 5 таких элементов
-1. Рассчитать сумму элементов этого массива
-2. Найти минимальное число
-3. Найти есть ли в этом массиве число 3*/
+Дан массив products, необходимо цену каждого продукта уменьшить на 15% используя метод forEach.*/
 
-const arr2 = [];
-for (let j = 0; j < 5; j++) {
-    arr2[j] = Math.floor(Math.random() * (9 - 0)) + 0;
-}
-console.log(arr2.reduce((sum, a) => sum + a, 0));
-console.log(Math.max.apply(null, arr2));
-console.log(`наличие елемента "3" в массиве: ${arr2.indexOf(3) != -1}`);
-console.log(arr2);
+const products = [
+    {   id: 3,
+        price: 200,
+    },
+    {   id: 4,
+        price: 900,
+    },
+    {   id: 1,
+        price: 1000,
+    },
+];
 
-/**Необязательное задание. *
-Необходимо вывести горку в консоль (используя цикл for), как показано на рисунке, только у вашей горки должно быть 20 рядов, а не 5:
+const productsSale = products;
+productsSale.forEach(el =>  el.id *= 0.85);
+console.log(productsSale);
 
-x
-xx
-xxx
-xxxx
-xxxxx*/
+/* Задание 4
+1. Необходимо вывести в консоль массив продуктов в котором есть хоть одна фотография используя метод filter. Исходные данные - массив products.
+2. Необходимо отсортировать массив products используя метод sort по цене, начиная с самой маленькой, заканчивая самой большой ценой, после чего вывести отсортированный массив в консоль. */
 
-let hill = '';
-for (let k = 0; k < 20; k++) {
-    hill += '*';
-    console.log(hill);    
-}
+const products2 = [
+    {
+        id: 3,
+        price: 127,
+        photos: [
+            "1.jpg",
+            "2.jpg",
+            ],
+    },
+    {
+        id: 5,
+        price: 499,
+        photos: [],
+    },
+    {
+        id: 10,
+        price: 26,
+        photos: [
+            "3.jpg",
+            ],
+    },
+    {
+        id: 8,
+        price: 78,
+    },
+];
+
+console.log(products2.filter(x => x.photos != 0 && x.photos != undefined));
+console.log(products2.sort((a, b) => a.price - b.price));
+
+
+/* **Задание 5**
+Дано 2 массива. Вам необходимо объединить 2 этих массива, чтобы значения первого массива были ключами, а значения второго массива — значениями.*/
+
+const en = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const ru = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
+
+const days = {};
+for (let i = 0; i < en.length; i++) days[en[i]] = ru[i];
+console.log(days);
