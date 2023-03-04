@@ -1,68 +1,73 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Homework 5</title>
 </head>
+
 <body>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
 
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title" data-number="100">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text" data-number="50">
-                Some quick example text to build on the card title and make up the bulk of the card's
-                content.
-            </p>
-            <a href="#" id="super_link" class="card-link">Card link</a>
-            <a href="#" class="card-link" data-number="50">Another link</a>
-        </div>
-    </div>
 
-    <script>
-        "use strict";
-        ``
-        // []()
-        // []()
-        // 1. Найти по id, используя getElementById, элемент с id равным "super_link" и вывести этот элемент в консоль.
-        // []()
-        console.log(document.getElementById('super_link'));
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не стирать, код с решением задачи пишем под комментарием.
 
-        // 2. Внутри всех элементов на странице, которые имеют класс "card-link", поменяйте текст внутри элемента на "ссылка".
-        // []()
-        Object.values(document.getElementsByClassName('card-link')).forEach(element => element.textContent = 'ссылка');
+```
+<p class="dropdown">Привет :)</p>
+<div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown button
+</button>
+<div class="menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+</div>
+</div>
 
-        // и так и так попробовал
-        document.querySelectorAll('.card-link').forEach(el => el.textContent = 'ссылка')
+<script>
+//     "use strict";
+// []()
+// []()
+// 1. Ко всем элементам, имеющим класс "dropdown-item" добавить еще один класс "super-dropdown", необходимо использовать методы forEach и querySelectorAll и свойство classList у элементов.
+document.querySelectorAll('.dropdown-item').forEach(el => {
+    el.classList.add('super-dropdown');
+})
 
-        // 3. Найти все элементы на странице с классом "card-link", которые лежат в элементе с классом "card-body" и вывести полученную коллекцию в консоль.
-        // []()
-        console.log(document.querySelectorAll('.card-body .card-link'));
+// []()
+// 2. У элемента с классом btn необходимо убрать класс "btn-secondary", если он присутствует у этого элемента, либо добавить, если такого класса у элемента не было.
+    document.querySelector('.btn').classList.forEach(el => {
+        el == 'btn-secondary'?
+            document.querySelector('.btn').classList.remove('btn-secondary'):
+            document.querySelector('.btn').classList.add('btn-secondary');
+    })
 
-        // 4. Найти первый попавшийся элемент на странице у которого есть атрибут data-number со значением 50 и вывести его в консоль.
-        // []()
-        console.log(document.querySelector('[data-number]'));
+// []()
+// 3. Необходимо удалить класс "dropdown-menu" у элемента, у которого присутствует класс "menu".
+    document.querySelectorAll('.menu').forEach(el => {
+        el.classList.remove('dropdown-menu');
+    })
 
-        // 5. Выведите содержимое тега title в консоль.
-        // []()
-        console.log(document.querySelector('title'));
+// []()
+// 4. Используя метод insertAdjacentHTML добавьте после div'a с классом "dropdown" следующую разметку:
+// `<a href="#">link</a>`
+        document.querySelector('div.dropdown').insertAdjacentHTML("afterend", '<a href="#">link</a>')
 
-        // 6. Получите элемент с классом "card-title" и выведите его родительский узел в консоль.
-        // []()
-        console.log(document.querySelector('.card-title').closest('div'));
+// []()
+// 5. У элемента с id "dropdownMenuButton" замените id на "superDropdown".
+        document.querySelector('#dropdownMenuButton').id = 'superDropdown';
 
-        // 7. Создайте тег`p`, запишите внутри него текст "Привет" и добавьте созданный тег в начало элемента, который имеет класс "card".
-        const pEl = document.createElement('p');
-        pEl.textContent = 'Привет';
-        document.querySelector('.card').prepend(pEl);
+// []()
+// 6. Добавьте атрибут data-dd со значением 3 элементу у которого существует атрибут "aria-labelledby" равный "dropdownMenuButton" используя dataset.
+        document.querySelectorAll('[aria-labelledby="dropdownMenuButton"]').forEach(el => {
+            el.dataset.add = '3';
+        })
 
-        // 8. Удалите тег h6 на странице.
-        document.querySelector('h6').remove();
+// []()
+// 7. Удалите атрибут type у элемента с классом "dropdown-toggle".
+        document.querySelectorAll('.dropdown-toggle').forEach(el => {
+            el.removeAttribute('type');
+        })
 
-    </script> 
+</script>
 </body>
 </html>
