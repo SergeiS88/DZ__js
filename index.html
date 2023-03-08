@@ -3,82 +3,80 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
     <title>Homework 5</title>
 </head>
 <body>
-    <p class="super_element">Привет</p>
+    
+  <input id="from" type="text">В инпуте написано: <span></span>
+  
+  <br>
+  
+  <button class="messageBtn">Показать блок</button>
+  <div class="message" style="visibility: hidden;">
+    Привет :)
+  </div>
+  
+  <br>
+  
+  <form action="/">
+    <label>
+      Первый инпут:
+      <input class="form-control" type="text">
+    </label>
+    <br>
+    <br>
+    <label>
+      Второй инпут:
+      <select class="form-control">
+        <option value=""></option>
+        <option value="1">Один</option>
+        <option value="2">Два</option>
+      </select>
+    </label>
+    <br>
+    <br>
+    <button>Отправить</button>
+  </form>
+  
+  <script>
+    "use strict";
+  
+    // 1. При изменении значения в input с id="from", значение содержащееся в нем должно моментально отображаться в span. То есть при печати в input'е тег span также должен меняться.
+      document.querySelector('#from').addEventListener('keyup', (e) => {
+        
+        document.querySelector('span').textContent = document.querySelector('#from').value;
+      });
+    
+    // 2. При клике на кнопку с классом messageBtn необходимо элементу с классом message:
+    // - добавить два класса: animate_animated и animate_fadeInLeftBig
+    // - поставить данному элементу стиль visibility в значение 'visible'.
+      document.querySelector('.messageBtn').addEventListener('click', (e) => {
+        document.querySelector('.message').classList. add('animate_animated');
+        document.querySelector('.message').classList. add('animate_fadeInLeftBig');
+        document.querySelector('.message').style.visibility = 'visible';
+      });
 
-<img src="https://placeimg.com/50/50/animals" alt="">
-<img src="https://placeimg.com/50/50/arch" alt="">
-<img src="https://placeimg.com/50/50/nature" alt="">
-<img src="https://placeimg.com/50/50/people" alt="">
-<img src="https://placeimg.com/50/50/tech" alt="">
-<img src="https://placeimg.com/50/50/tech/grayscale" alt="">
-<img src="https://placeimg.com/50/50/tech/sepia" alt="">
+    // 3. Необходимо при отправке формы проверить, заполнены ли все поля в этой форме. Если какое-либо поле не заполнено, форма не должна отправляться, также должны быть подсвечены незаполненные поля (необходимо поставить класс error незаполненным полям). Как только пользователь начинает заполнять какое-либо поле, необходимо, при вводе в данное поле, произвести проверку:
+    // - Если поле пустое, необходимо данное поле подсветить (поставить класс error данному полю).
+    // - Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
 
-<br>
+    let style = document.createElement('style');
+    style.textContent = '.error{background: indianred;}';
+    document.querySelector('head').appendChild(style);
 
-<button>Кнопка</button>
-<button class="super_element">Кнопка с классом btn</button>
-<button>Кнопка</button>
+    document.querySelector('form').addEventListener('submit', (ev) => {
+      document.querySelectorAll('.form-control').forEach(elem => {
+        if(elem.value == '')  {
+          ev.preventDefault();
+          elem.classList.add('error');
+        };
+      });
+    });
+    document.querySelector('form').addEventListener('input', (e) => {
+      e.target.value != ''? e.target.classList.remove('error'): e.target.classList.add('error');
+    });
 
-<br>
-
-<textarea></textarea>
-
-<br>
-
-<ul>
-  <li>
-    <button>Кнопка 1</button>
-  </li>
-  <li>
-    <button>Кнопка 2</button>
-  </li>
-  <li>
-    <button>Кнопка 3</button>
-  </li>
-  <li>
-    <button>Кнопка 4</button>
-  </li>
-</ul>
-
-<script>
-  "use strict";
-
-
-// 1. Необходимо вывести сообщение в консоль "все теги прогрузились", когда все теги будут созданы браузером.
-document.addEventListener("DOMContentLoaded", () => console.log('все теги прогрузились'));
-
-// 2. Необходимо вывести сообщение в консоль "страница загрузилась", когда все ресурсы страницы будут загружены.
-Window.onload = console.log('Страница загрузилась');
-
-// 3. При клике на какой-либо тег на странице в консоль должно выводиться сообщение наподобие:
-// - Класс "super_element" присутствует в элементе "div".
-// - сообщение должно определять присутствует или отсутствует класс "super_element"
-// - у элемента, а также выводить в нижнем регистре верный тег в данной строке, по
-// - которому был совершен клик.
-// - Необходимо использовать делегирование.
-document.addEventListener('click', (e) => {
-  let el = e.target;
-  let tag = el.tagName.toLowerCase();
-  console.log(el.classList == 'super_element'?   `Класс "super_element" присутствует в элементе "${tag}"`: `Класс "super_element" отсутствует в элементе "${tag}"`);
-})
-
-// 4. Сделайте, чтобы при наведении на textarea в консоли появлялось сообщение: "Вы навели на textarea."
-document.querySelector('textarea').addEventListener('mouseover', () => console.log('Вы навели на textarea.')) ;
-
-// 5. Необходимо повесить событие клика на тег ul. В обработчике события в консоль необходимо выводить текст, который записан внутри элемента кнопки, по которой был произведен клик. Если клик был не по кнопке, то ничего выводить не нужно. Необходимо использовать делегирование.
-document.querySelector('ul').addEventListener('click', (e) => {
-    let el = e.target;
-    if(el.tagName == 'BUTTON') console.log(el.textContent);
-});
-
-// 6. Вопрос: Почему в console.log пишется сначала текст из 5 задания и только потом выводится текст из 3 задания, если мы кликаем по кнопкам в ul? Ответ необходимо написать здесь же, под этим комментарием, своими словами.
-// Потому что действия совершаются на этапе всплытия, а ul "младше" всего документа.
-
-// 7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега li.
-    document.querySelectorAll('li:nth-of-type(even)').forEach(e => e.setAttribute('style', 'background: red;'));
-</script>
+  </script>
 </body>
 </html>
