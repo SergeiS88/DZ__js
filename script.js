@@ -1,6 +1,7 @@
 
-setInterval(
-function(){
+
+setTimeout(// ставлю интервал - работает. без него выполняется без загруженных урлов
+function (){
     const frontData = dataInfo;
     // console.log(frontData);
 
