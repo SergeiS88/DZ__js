@@ -1,6 +1,6 @@
 
-setTimeout(
-function(){
+
+function CatSection(){
     const frontData = dataInfo;
     // console.log(frontData);
 
@@ -32,4 +32,4 @@ function(){
         wrapperEl.appendChild(wrapperItemEl);
         count++;
     });
-}, 8000);
+}

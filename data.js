@@ -24,9 +24,10 @@ const dataInfo =
     },
 ];
 
+// // синхронный запрос
 // dataInfo.forEach(e => {
 //     const apiData = new XMLHttpRequest();
-//     apiData.open('GET', 'https://aws.random.cat/meow');
+//     apiData.open('GET', 'https://aws.random.cat/meow', false);
 //     apiData.send();
 //     apiData.onreadystatechange = () => {
 //         if(apiData.status == 200 && apiData.readyState == 4){     
@@ -43,6 +44,7 @@ dataInfo.forEach(e => {
         e.url = (await response.json()).file;
     }
     )();
+    CatSection();
 });
 
 console.log(dataInfo);
