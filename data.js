@@ -20,17 +20,15 @@ const dataInfo =
     },
 ];
 
-// // синхронный запрос
+// // синхронный запрос работает без всяких, но долго
 // dataInfo.forEach(e => {
 //     const apiData = new XMLHttpRequest();
 //     apiData.open('GET', 'https://aws.random.cat/meow', false);
 //     apiData.send();
-//     apiData.onreadystatechange = () => {
-//         if(apiData.status == 200 && apiData.readyState == 4){     
-//             let url = JSON.parse(apiData.responseText);
-//             e["url"] = url.file;
+//     if(apiData.status == 200 ){     
+//         let url = JSON.parse(apiData.responseText);
+//         e["url"] = url.file;
 //         }
-//     };
 // });
 
 dataInfo.forEach(e => {
