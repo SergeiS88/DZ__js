@@ -40,8 +40,7 @@ dataInfo.forEach(e => {
     (async function APICat()
     {
         let response = await fetch('https://aws.random.cat/meow');
-        let respObj = await response.json();
-        e.url = respObj.file;
+        e.url = (await response.json()).file;
     }
     )();
 });
@@ -54,6 +53,7 @@ console.log(dataInfo[0].url);
 //     if(dataInfo[2].url != undefined)
 //     console.log(JSON.stringify(dataInfo));
 //     if(ind >20000){ console.log('vvvvv'); break;}
+//     ind++;
 // }
 
 
