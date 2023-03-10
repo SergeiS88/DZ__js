@@ -44,7 +44,6 @@ dataInfo.forEach(e => {
         e.url = (await response.json()).file;
     }
     )();
-    CatSection();
 });
 
 console.log(dataInfo);
