@@ -1,36 +1,61 @@
+const video = document.querySelector('.video');
 
+// включает/выключает плеер и меняет иконку
+const PlayPause = () => {
+    if(video.paused){
+        video.play();
+        document.querySelectorAll('.play').forEach(e => e.setAttribute('style', 'display: none;'));
+        document.querySelectorAll('.pause').forEach(e => e.setAttribute('style', 'display: block;'));
+    }
+    else{
+        video.pause();
+        document.querySelectorAll('.play').forEach(e => e.setAttribute('style', 'display: block;'));
+        document.querySelectorAll('.pause').forEach(e => e.setAttribute('style', 'display: none;'));
+    }
+};
 
-setTimeout(// ставлю интервал - работает. без него выполняется без загруженных урлов
-function(){
-    const frontData = dataInfo;
-    // console.log(frontData);
+// длительность
+video.addEventListener('loadedmetadata', () => {
+    document.querySelector('.duration').textContent = video.duration;
+});
+// таймер  
+video.addEventListener('timeupdate', (e) => {
+    document.querySelector('.timer').innerText = video.currentTime;
+    document.querySelector('.timing').value = video.currentTime / video.duration * 100;
+})
 
-    const wrapperEl = document.createElement('section');
-    wrapperEl.classList.add('wrapper');
-    document.body.prepend(wrapperEl);
+// слушаем событие на блоке плеера 
+document.querySelector('.video__wrapper').addEventListener('click', (e) => {
+    // чтоб панель не срабатывала на воспроизведение
+    if(e.target.className === 'controls' || e.target.tagName === 'INPUT') return;
+    PlayPause();
+});
 
-    let count = 1;
-    frontData.forEach(element => {
-        const wrapperItemEl = document.createElement('article');
-        wrapperItemEl.classList.add('wrapper__item');
-        
-        const imgEl = document.createElement('img');
-        imgEl.setAttribute('src', element.url);
-        imgEl.setAttribute('alt', element.id);
-        imgEl.width = '150';
-        imgEl.height = '150';
+// во весь экран 
+document.querySelector('.fullScreen').addEventListener('click', () => {
+    document.querySelector('.video').requestFullscreen();
+});
 
-        const aEl = document.createElement('a');
-        aEl.href = element.url;
-        aEl.textContent = element.id;
-        
-        const pEl = document.createElement('p');
-        pEl.textContent = `кот номер ${count}`;
+// бегунок времени
+document.querySelector('.timing').addEventListener('input', () => {
+    video.currentTime = document.querySelector('.timing').value / 100 * video.duration;
+});
 
-        wrapperItemEl.appendChild(imgEl);
-        wrapperItemEl.appendChild(pEl);
-        wrapperItemEl.appendChild(aEl);
-        wrapperEl.appendChild(wrapperItemEl);
-        count++;
-    });
-}, 8000);
+// бегунок громкости
+document.querySelector('.volume').addEventListener('input', () => {
+    video.volume = document.querySelector('.volume').value;
+});
+
+// включить отображение
+const Visible = () => {
+    document.querySelector('.buttons').setAttribute('style', 'visibility: visible;');
+}
+// отключить отображение
+const Hidden = () => {
+    document.querySelector('.buttons').setAttribute('style', 'visibility: hidden;');
+}
+// слушаем мышь над видео
+document.querySelector('.video__wrapper').addEventListener('mouseover', Visible);
+document.querySelector('.video__wrapper').addEventListener('mouseout', () => {
+    if(!video.paused) Hidden();// усли не играет - не убираем
+});
