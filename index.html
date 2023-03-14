@@ -9,19 +9,21 @@
 </head>
 <body>
     <section class="video__wrapper">
-        <video class="video" src="Lesson_11.mp4" preload="metadata"><img src="" alt=""></video>
+        <video class="video" src="./video.mp4" preload="metadata"><img src="" alt=""></video>
         <div class="controls">
             <div class="side"></div>
-            <div class="">
+            <div class="buttons__box">
                 <img class="play" src="./img/play2.svg" alt="иконка воспроизведения">
                 <img class="pause" src="./img/pause2.svg" alt="иконка паузы">
             </div>
-            <span class="timer">0</span>
-            <span>/</span>
-            <span class="duration"></span>
+            <div class="duration__box">
+                <span class="timer">0</span>
+                <span>/</span>
+                <span class="duration">0</span>
+            </div>
             <input class="timing" type="range" value="0" step="0.001" id="time">
             <input class="volume" type="range" min="0" max="1" step="0.01" id="vol">
-            <input type="image" class="fullScreen" src="./img/fullscreen.svg" width="35px">
+            <input type="image" class="full__screen" src="./img/fullscreen.svg" width="35px">
             <div class="side"></div>
         </div>
         <div class="buttons">

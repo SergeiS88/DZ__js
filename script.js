@@ -1,61 +1,86 @@
-const video = document.querySelector('.video');
+class Player {
+    constructor(video){
+        this._video = video;
+        this._isPlay = !video.paused;
+    };
+    
+    
+    PlayPause = () => {
+        if(this._video.paused) this._video.play();
+        else this._video.pause();
+        this._isPlay = !this._video.paused;
+    };
+    
+    VisibilityHud(el, cl){
+        if(video._isPlay)
+        this.Visibility(el, cl);
+    };
+    Visibility (el, cl) {el.classList.toggle(cl)};
+    
+    NullsBefore(time){
+        let stringTime = '';
+        for (let i = time.length; i > 0 ; i--) {
+            stringTime += time[i-1] = String(time[i-1]).padStart(2, '0');
+            if(i > 1) stringTime += ':'
+        }; 
+        return stringTime;
+    };
+}
+const video = new Player(document.querySelector('.video'));
+const vWrapperEl = document.querySelector('.video__wrapper');
+// console.log(video);
 
-// включает/выключает плеер и меняет иконку
-const PlayPause = () => {
-    if(video.paused){
-        video.play();
-        document.querySelectorAll('.play').forEach(e => e.setAttribute('style', 'display: none;'));
-        document.querySelectorAll('.pause').forEach(e => e.setAttribute('style', 'display: block;'));
+// вкл/выкл
+vWrapperEl.addEventListener('click', (e) => {
+    if(e.target.className === 'video' || e.target.className === 'buttons' || e.target.tagName === 'IMG'){
+        video.PlayPause();
+        document.querySelectorAll('.play').forEach(el => video.Visibility(el, 'disp__none'));
+        document.querySelectorAll('.pause').forEach(el => video.Visibility(el, 'disp__none'));
     }
-    else{
-        video.pause();
-        document.querySelectorAll('.play').forEach(e => e.setAttribute('style', 'display: block;'));
-        document.querySelectorAll('.pause').forEach(e => e.setAttribute('style', 'display: none;'));
-    }
-};
+});
+
+// слушаем мышь над видео
+vWrapperEl.addEventListener('mouseenter', () => {
+    video.VisibilityHud(document.querySelector('.controls'),'hide__hud');
+    video.VisibilityHud(document.querySelector('.buttons'),'hide__btns');
+});
+vWrapperEl.addEventListener('mouseleave', () => {
+    video.VisibilityHud(document.querySelector('.controls'),'hide__hud');
+    video.VisibilityHud(document.querySelector('.buttons'),'hide__btns');
+});
+
 
 // длительность
-video.addEventListener('loadedmetadata', () => {
-    document.querySelector('.duration').textContent = video.duration;
+video._video.addEventListener('loadedmetadata', () => {
+    const durationTime = [
+        Math.floor(video._video.duration%59),
+        Math.floor(video._video.duration/60),
+        Math.floor(Math.floor(video._video.duration/60)/60),
+    ];
+    document.querySelector('.duration').textContent = video.NullsBefore(durationTime);
 });
-// таймер  
-video.addEventListener('timeupdate', (e) => {
-    document.querySelector('.timer').innerText = video.currentTime;
-    document.querySelector('.timing').value = video.currentTime / video.duration * 100;
-})
-
-// слушаем событие на блоке плеера 
-document.querySelector('.video__wrapper').addEventListener('click', (e) => {
-    // чтоб панель не срабатывала на воспроизведение
-    if(e.target.className === 'controls' || e.target.tagName === 'INPUT') return;
-    PlayPause();
+// // таймер  
+video._video.addEventListener('timeupdate', () => {
+    const currentTime =[
+        Math.floor(video._video.currentTime%59),
+        Math.floor((video._video.currentTime+1)/60),
+        Math.floor(Math.floor((video._video.currentTime)/60)/60),
+    ];
+    document.querySelector('.timer').textContent = video.NullsBefore(currentTime);
+    document.querySelector('.time__input').value = video._video.currentTime / video._video.duration * 100;
 });
 
 // во весь экран 
-document.querySelector('.fullScreen').addEventListener('click', () => {
-    document.querySelector('.video').requestFullscreen();
+document.querySelector('.full__screen').addEventListener('click', () => {
+    video._video.requestFullscreen();
 });
 
 // бегунок времени
-document.querySelector('.timing').addEventListener('input', () => {
-    video.currentTime = document.querySelector('.timing').value / 100 * video.duration;
+document.querySelector('.time__input').addEventListener('input', () => {
+    video._video.currentTime = document.querySelector('.time__input').value / 100 * video._video.duration;
 });
 
 // бегунок громкости
-document.querySelector('.volume').addEventListener('input', () => {
-    video.volume = document.querySelector('.volume').value;
-});
-
-// включить отображение
-const Visible = () => {
-    document.querySelector('.buttons').setAttribute('style', 'visibility: visible;');
-}
-// отключить отображение
-const Hidden = () => {
-    document.querySelector('.buttons').setAttribute('style', 'visibility: hidden;');
-}
-// слушаем мышь над видео
-document.querySelector('.video__wrapper').addEventListener('mouseover', Visible);
-document.querySelector('.video__wrapper').addEventListener('mouseout', () => {
-    if(!video.paused) Hidden();// усли не играет - не убираем
+document.querySelector('.volume__input').addEventListener('input', () => {
+    video._video.volume = document.querySelector('.volume__input').value;
 });
